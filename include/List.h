@@ -96,6 +96,31 @@ public:
 			cout << current->data << "->";
 			current = current->next;
 		}
+		cout << endl;
+	}
+	//the task for list - 10
+	void printReverse() {
+
+		Node* prev = nullptr;
+		Node* current = first;
+		Node* next = nullptr;
+
+		while (current != nullptr) {
+			next = current->next;
+
+			current->next = prev;
+
+			prev = current;
+			current = next;
+		}
+
+		current = prev;
+
+		while (current != nullptr) {
+			cout << current->data << "->";
+			current = current->next;
+		}
+		cout << endl;
 	}
 
 	bool operator==(const List<T>& other) const noexcept {
@@ -222,7 +247,7 @@ public:
 	{
 		return first;
 	}
-
+	
 	friend istream& operator>>(istream& istr, List& other)
 	{
 		Node* current = other.first;
