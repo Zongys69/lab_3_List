@@ -165,3 +165,78 @@ TEST(List, cant_erase_front_in_empty_list)
 	List<int> l;
 	ASSERT_ANY_THROW(l.erase_front());
 }
+//test for iterator
+TEST(Iterator, can_begin_iteratot)
+{
+	List<int> l(5);
+	ASSERT_NO_THROW(auto it = l.begin());
+}
+
+TEST(Iterator, can_end_iterator)
+{
+	List<int> l(5);
+	ASSERT_NO_THROW(auto it = l.end());
+}
+
+TEST(Iterator, can_iterator_step_ahead)
+{
+	List<int> l(3);
+	l[0] = 1;
+	l[1] = 3;
+	l[2] = 2;
+
+	auto it = l.begin();
+	it++;
+
+	ASSERT_EQ(l[1], * it);
+}
+
+TEST(Iterator, cant_iterator_step_out_of_range )
+{
+	List<int> l(3);
+	l[0] = 1;
+	l[1] = 3;
+	l[2] = 2;
+
+	auto it = l.begin();
+	it++;
+	
+	ASSERT_ANY_THROW(it++);
+}
+
+TEST(Iterator, can_get_element)
+{
+	List<int> l(3);
+	l[0] = 1;
+	l[1] = 3;
+	l[2] = 2;
+
+	auto it = l.begin();
+	it++;
+
+	ASSERT_EQ(&(l[1]), it.operator->());
+}
+
+TEST(Iterator, equal_iterators_are_equal)
+{
+	List<int> l(3);
+	l[0] = 1;
+	auto it1 = l.begin();
+	auto it2 = l.begin();
+
+	ASSERT_EQ(it1 == it2, true);
+}
+
+TEST(Iterator, not_equal_iterators_are_equal)
+{
+	List<int> l(3);
+	l[0] = 1;
+	l[1] = 2;
+	l[2] = 3;
+	auto it1 = l.begin();
+	auto it2 = l.begin();
+	it2++;
+	ASSERT_EQ(it1 == it2, false);
+}
+
+

@@ -246,6 +246,64 @@ public:
 
 		return ostr;
 	}
+	//Iterator
+	class Iterator {
+	private:
+		Node* current; 
+
+	public:
+		
+		Iterator(Node* node) : current(node) {}
+
+		Iterator& operator++() {
+			if (!current || !current->next) 
+				throw "Out of range";
+			
+			current = current->next;
+			return *this; 
+		}
+
+
+		Iterator operator++(int) {
+			if (!current || !current->next) 
+				throw "Out of range";
+			
+		Iterator copy(*this);
+			current = current->next;
+			return copy; 
+		}
+
+		T& operator*() {
+			if (!current) 
+				throw "Out of range"; 
+			
+			return current->data;
+		}
+
+		T* operator->() {
+			if (!current) 
+				throw "Out of range";
+			
+			return &(current->data);
+		}
+		
+		friend bool operator!=(const Iterator& it1, const Iterator& it2) {
+			return it1.current != it2.current;
+		}
+
+		friend bool operator==(const Iterator& it1, const Iterator& it2) {
+			return it1.current == it2.current;
+		}
+	};
+
+	Iterator begin() {
+		return Iterator(first);
+	}
+
+	Iterator end() {
+		return Iterator(nullptr);
+	}
+
 };
 
 
